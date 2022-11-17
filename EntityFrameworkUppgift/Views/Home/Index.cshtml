@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Person>
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="text-center">
+    <form method="post" action="@Url.ActionLink("Create", "Home")">
+        <input type="text" name="Name" placeholder="Name">
+        <input type="text" name="PhoneNumber" placeholder="Phone">
+        <input type="text" name="City" placeholder="City">
+        <input type="submit" value="Add">
+    </form>
+</div>
+
+<a class="btn btn-success" asp-controller="Home" asp-action="Index">Refresh</a>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Phone number
+            </th>
+            <th>
+                People
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.PhoneNumber
+                </td>
+                <td>
+                    @item.City
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-controller="Home" asp-route-id=@item.Id class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
