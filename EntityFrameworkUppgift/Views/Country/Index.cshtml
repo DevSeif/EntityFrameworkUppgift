@@ -1,0 +1,33 @@
+﻿@model CountryViewModel
+
+@{
+    ViewData["Title"] = "Countries";
+}
+
+<div class="text-center">
+    <form asp-action="Create" method="post">
+        <input type="text" name="CountryName" placeholder="Country name">
+        <input type="submit" value="Add country" class="btn btn-primary">
+    </form>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Country
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.countries)
+        {
+            <tr>
+                <td>
+                    @item.CountryName
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

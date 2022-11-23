@@ -1,20 +1,17 @@
-﻿@model IEnumerable<Person>
+﻿@model PeopleViewModel
 
 @{
     ViewData["Title"] = "Home";
 }
 
 <div class="text-center">
-    <form method="post" action="@Url.ActionLink("Create", "Home")">
+    <form asp-action="Create" method="post">
         <input type="text" name="Name" placeholder="Name">
         <input type="text" name="PhoneNumber" placeholder="Phone">
-        <input type="text" name="City" placeholder="City">
-        <input type="submit" value="Add">
+        <select id="selectlist" name="CityId" asp-items="@ViewBag.Cities"></select>
+        <input type="submit" value="Add" class="btn btn-primary">
     </form>
 </div>
-
-<a class="btn btn-success" asp-controller="Home" asp-action="Index">Refresh</a>
-
 
 <table class="table">
     <thead>
@@ -26,13 +23,16 @@
                 Phone number
             </th>
             <th>
-                People
+                City
+            </th>
+            <th>
+                Country
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.people)
         {
             <tr>
                 <td>
@@ -42,12 +42,16 @@
                     @item.PhoneNumber
                 </td>
                 <td>
-                    @item.City
+                    @item.City.CityName
                 </td>
                 <td>
-                    <a asp-action="Delete" asp-controller="Home" asp-route-id=@item.Id class="btn btn-danger">Delete</a>
+                    @item.City.Country.CountryName
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-controller="Home" asp-route-id=@item.PersonId class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+

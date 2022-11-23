@@ -1,0 +1,39 @@
+﻿@model CityViewModel
+
+@{
+    ViewData["Title"] = "Cities";
+}
+
+<div class="text-center">
+    <form asp-action="Create" method="post">
+        <input type="text" name="Name" placeholder="City name">
+        <select id="selectlist" name="CountryId" asp-items="@ViewBag.Countries"></select>
+        <input type="submit" value="Add city" class="btn btn-primary">
+    </form>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                City
+            </th>
+            <th>
+                Country
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.countries)
+        {
+            <tr>
+                <td>
+                    @item.CityName
+                </td>
+                <td>
+                    @item.Country.CountryName
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
