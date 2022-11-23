@@ -2,7 +2,8 @@
 using EntityFrameworkUppgift.Models;
 using EntityFrameworkUppgift.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace EntityFrameworkUppgift.Controllers
 {
@@ -18,7 +19,13 @@ namespace EntityFrameworkUppgift.Controllers
 
         public IActionResult Index()
         {
-            return View(_context.People.OrderBy(x => x.Name).ToList());
+
+            PeopleViewModel peopleViewModel = new PeopleViewModel();
+            peopleViewModel.people = _context.People.Include(x => x.City).ToList();
+            
+            ViewBag.Cities = new SelectList(_context.Cities, "CityId", "CityName");
+
+            return View(peopleViewModel);
         }
 
         [HttpPost]
@@ -26,7 +33,7 @@ namespace EntityFrameworkUppgift.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.People.Add(new Person {Name = model.Name, PhoneNumber = model.PhoneNumber, City = model.City});
+                _context.People.Add(new Person {Name = model.Name, PhoneNumber = model.PhoneNumber, CityId = model.CityId});
                 _context.SaveChanges();
             }
             

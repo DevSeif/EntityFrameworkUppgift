@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EntityFrameworkUppgift.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace EntityFrameworkUppgift.ViewModels
 {
@@ -12,7 +13,6 @@ namespace EntityFrameworkUppgift.ViewModels
         [MinLength(9)]
         public string PhoneNumber { get; set; }
 
-        [Required]
-        public string City { get; set; }
+        public int CityId { get; set; }
     }
 }
